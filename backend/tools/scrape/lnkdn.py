@@ -1,8 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
+from markdownify import markdownify as md
 
 
-def main(id):
+def lnParse(id):
     url = f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{id}"
     res = requests.get(url)
     soup = BeautifulSoup(res.text, "html.parser")
@@ -20,9 +21,9 @@ def main(id):
         data["timeago"] = soup.find(
             "span", {"class": "posted-time-ago__text"}
         ).get_text(strip=True)
-        data["description"] = soup.find(
-            "div", {"class": "show-more-less-html__markup"}
-        ).get_text(strip=True)
+        data["description"] = md(
+            str(soup.find("div", {"class": "show-more-less-html__markup"}))
+        )
         data["lvl"] = soup.find(
             "span", {"class": "description__job-criteria-text"}
         ).get_text(strip=True)
@@ -32,4 +33,4 @@ def main(id):
     print(data)
 
 
-main(4252330822)
+lnParse(4252330822)
