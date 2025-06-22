@@ -27,10 +27,7 @@ def lnParse(id):
         data["lvl"] = soup.find(
             "span", {"class": "description__job-criteria-text"}
         ).get_text(strip=True)
+        return data
 
     except:
         return "Something went wrong with scraping"
-    print(data)
-
-
-lnParse(4252330822)
