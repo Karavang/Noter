@@ -23,5 +23,10 @@ def pushOne(data: list):
 
 # def parseExitingCSV():
 #     pd.read_csv(),
-# createCSV(["title", "link", "date"])
-pushOne(["aboba", "https://aboba.com", "05.05.2025"])
+def readCsv(path: Path):
+    df = pd.read_csv(path)
+    return df
+
+
+readCsv(Path(f"{documents_path}/noter/dataframe.csv"))
+# pushOne(["aboba", "https://aboba.com", "05.05.2025"])
