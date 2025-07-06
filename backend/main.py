@@ -21,4 +21,4 @@ def read_item(item_id: int, q: str = None):
 
 @app.post("/add")
 def add(link):
-    return addNew(link)["description"]
+    return addNew(link)

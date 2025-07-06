@@ -1,9 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 from markdownify import markdownify as md
+from sys import argv
 
 
-def lnParse(id):
+def lnParse(id: str):
     url = f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{id}"
     res = requests.get(url)
     soup = BeautifulSoup(res.text, "html.parser")
@@ -31,3 +32,6 @@ def lnParse(id):
 
     except:
         return "Something went wrong with scraping"
+
+
+# print(lnParse(argv[1]))
