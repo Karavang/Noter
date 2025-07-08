@@ -1,18 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "./components/modalWindow";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [backWidth, setBackWidth] = useState(1366);
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const image = new Image();
+
+        image.onload = () => {
+          const width = image.width;
+          const height = image.height;
+
+          console.log(`Image size: ${width}x${height}px`);
+
+          document.body.style.backgroundImage = `url(${reader.result})`;
+          setBackWidth(width);
+        };
+
+        image.src = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+  useEffect(() => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth < backWidth) {
+      document.body.style.backgroundSize = "auto";
+    } else {
+      document.body.style.backgroundSize = "cover";
+    }
+  }, [backWidth]);
   return (
     <div className="general mainPage">
       <div className="menu">
-        <button>userinfo</button>
+        <button className="buttonMenu">userinfo</button>
 
-        <button>Add new one</button>
+        <button className="buttonMenu">Add new one</button>
 
-        <button onClick={() => setIsModalOpen(true)}>Preferences</button>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="buttonMenu"
+        >
+          Preferences
+        </button>
 
         <Modal
           isOpen={isModalOpen}
@@ -20,10 +59,19 @@ export default function Home() {
         >
           <div className="preferences">
             <div>
-              Change background:
+              Change background:{" "}
+              <button
+                onClick={() => document.getElementById("fileInput").click()}
+              >
+                Select image
+              </button>
               <input
+                id="fileInput"
+                text="file"
                 type="file"
+                onChange={handleFileChange}
                 accept=".png, .jpg, .jpeg"
+                style={{ display: "none" }}
               />
             </div>
           </div>
