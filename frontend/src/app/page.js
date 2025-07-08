@@ -11,15 +11,22 @@ export default function Home() {
         <button>userinfo</button>
 
         <button>Add new one</button>
-        <button>Preferences</button>
-        <button onClick={() => setIsModalOpen(true)}>Open Modal</button>
+
+        <button onClick={() => setIsModalOpen(true)}>Preferences</button>
 
         <Modal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
         >
-          <h2>Modal Title</h2>
-          <p>This is the content inside the modal.</p>
+          <div className="preferences">
+            <div>
+              Change background:
+              <input
+                type="file"
+                accept=".png, .jpg, .jpeg"
+              />
+            </div>
+          </div>
         </Modal>
         {/* <button className="getPremium">Get Premium</button> */}
       </div>
