@@ -20,5 +20,11 @@ def read_item(item_id: int, q: str = None):
 
 
 @app.post("/add")
-def add(link):
+def addOne(link):
     return addNew(link)
+
+
+@app.post("/addsome")
+def addSome(list: list):
+    for el in list:
+        return addNew(el)

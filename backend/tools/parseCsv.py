@@ -28,5 +28,6 @@ def readCsv(path: Path):
     return df
 
 
-readCsv(Path(f"{documents_path}/noter/dataframe.csv"))
+# readCsv(Path(f"{documents_path}/noter/dataframe.csv"))
 # pushOne(["aboba", "https://aboba.com", "05.05.2025"])
+createCSV(["title", "company", "loc", "timeago", "description", "lvl"])
