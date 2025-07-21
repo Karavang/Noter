@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Body, status
 from fastapi.responses import JSONResponse
 from tools.funcs.add import addNew
+from datetime import datetime
+from tools.parseCsv import listData
 
 
 app = FastAPI()
@@ -21,9 +23,18 @@ def read_item(item_id: int, q: str = None):
 
 @app.post("/add")
 def addOne(url: str = Body(...)):
-    return addNew(url)
+    now = datetime.now()
+    date_str = now.strftime("%Y-%m-%d")
+    return addNew(url, date_str)
 
 
 @app.post("/addsome")
 def addSome(urls: list[str] = Body(...)):
-    return {"results": [addNew(el) for el in urls]}
+    now = datetime.now()
+    date_str = now.strftime("%Y-%m-%d")
+    return {"results": [addNew(el, date_str) for el in urls]}
+
+
+@app.get("/getAll")
+def getAll():
+    return listData()

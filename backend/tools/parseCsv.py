@@ -12,8 +12,11 @@ def createCSV(columns: list):
     df.to_csv(output_path, index=False)
 
 
-def pushOne(data: list):
+def pushOne(data: list, columns: list):
     path = documents_path / "noter/dataframe.csv"
+    if not path.exists():
+
+        createCSV(columns)
     df = pd.read_csv(path)
     new_row = pd.DataFrame([data], columns=df.columns)
     df = pd.concat([df, new_row], ignore_index=True)
@@ -23,10 +26,15 @@ def pushOne(data: list):
 
 # def parseExitingCSV():
 #     pd.read_csv(),
-def readCsv(path: Path):
-    df = pd.read_csv(path)
-    return df
+def listData():
+    path = documents_path / "noter/dataframe.csv"
+    if path.exists():
+        df = pd.read_csv(path)
+        return df[["title", "company", "timeago"]].to_dict(orient="records")
+    else:
+        return "No records"
 
 
 # readCsv(Path(f"{documents_path}/noter/dataframe.csv"))
 # pushOne(["aboba", "https://aboba.com", "05.05.2025"])
+# print(listData(documents_path / "noter/dataframe.csv"))
