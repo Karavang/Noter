@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status, Request
+from fastapi import FastAPI, Body, status
 from fastapi.responses import JSONResponse
 from tools.funcs.add import addNew
 
@@ -20,11 +20,10 @@ def read_item(item_id: int, q: str = None):
 
 
 @app.post("/add")
-def addOne(link):
-    return addNew(link)
+def addOne(url: str = Body(...)):
+    return addNew(url)
 
 
 @app.post("/addsome")
-def addSome(list: list):
-    for el in list:
-        return addNew(el)
+def addSome(urls: list[str] = Body(...)):
+    return {"results": [addNew(el) for el in urls]}

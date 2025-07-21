@@ -15,10 +15,10 @@ def createCSV(columns: list):
 def pushOne(data: list):
     path = documents_path / "noter/dataframe.csv"
     df = pd.read_csv(path)
-    print(df)
     new_row = pd.DataFrame([data], columns=df.columns)
     df = pd.concat([df, new_row], ignore_index=True)
     df.to_csv(path, index=False)
+    return "OK"
 
 
 # def parseExitingCSV():
@@ -30,4 +30,3 @@ def readCsv(path: Path):
 
 # readCsv(Path(f"{documents_path}/noter/dataframe.csv"))
 # pushOne(["aboba", "https://aboba.com", "05.05.2025"])
-createCSV(["title", "company", "loc", "timeago", "description", "lvl"])
