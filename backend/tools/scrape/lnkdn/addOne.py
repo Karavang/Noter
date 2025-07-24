@@ -1,10 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 from markdownify import markdownify as md
-from sys import argv
 
 
-def lnParse(id: str, timeago: str):
+def addOneLn(id: str, timeago: str):
     url = f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{id}"
     res = requests.get(url)
     soup = BeautifulSoup(res.text, "html.parser")
@@ -16,16 +15,8 @@ def lnParse(id: str, timeago: str):
         data["company"] = soup.find(
             "a", {"data-tracking-control-name": "public_jobs_topcard-org-name"}
         ).get_text(strip=True)
-        data["loc"] = soup.find("span", {"class": "topcard__flavor--bullet"}).get_text(
-            strip=True
-        )
+
         data["timeago"] = timeago
-        data["description"] = md(
-            str(soup.find("div", {"class": "show-more-less-html__markup"}))
-        )
-        data["lvl"] = soup.find(
-            "span", {"class": "description__job-criteria-text"}
-        ).get_text(strip=True)
         data["id"] = id
         return data
 

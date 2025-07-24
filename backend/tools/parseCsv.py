@@ -30,7 +30,7 @@ def listData():
     path = documents_path / "noter/dataframe.csv"
     if path.exists():
         df = pd.read_csv(path)
-        return df[["title", "company", "timeago"]].to_dict(orient="records")
+        return df[["title", "company", "timeago", "id"]].to_dict(orient="records")
     else:
         return "No records"
 

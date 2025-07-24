@@ -1,4 +1,4 @@
-from tools.scrape.lnkdn import lnParse
+from tools.scrape.lnkdn.addOne import addOneLn
 from tools.parseCsv import pushOne
 
 
@@ -8,7 +8,7 @@ def addNew(link, timeago):
             parts = link.split("/jobs/view/")
             id_part = parts[1].split("/")[0]
             try:
-                data_dict = lnParse(id_part, timeago)
+                data_dict = addOneLn(id_part, timeago)
                 print(data_dict)
                 data = list(data_dict.values()) if isinstance(data_dict, dict) else []
                 return (

@@ -3,9 +3,18 @@ from fastapi.responses import JSONResponse
 from tools.funcs.add import addNew
 from datetime import datetime
 from tools.parseCsv import listData
-
+from tools.funcs.getMark import getMarkById
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
@@ -16,9 +25,9 @@ def read_root():
     )
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "query": q}
+@app.get("/doc/{item_id}")
+def read_item(item_id: int):
+    return getMarkById(item_id)
 
 
 @app.post("/add")

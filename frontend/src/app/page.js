@@ -2,10 +2,23 @@
 
 import { useEffect, useState } from "react";
 import Modal from "./components/modalWindow";
+import { getAll } from "@/funcs/getAll";
+import Vacanse from "./components/vacanse";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [backWidth, setBackWidth] = useState(1366);
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getAll();
+      console.log("Fetched data:", result);
+      setData(result);
+    };
+    fetchData();
+  }, []);
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
@@ -67,7 +80,6 @@ export default function Home() {
               </button>
               <input
                 id="fileInput"
-                text="file"
                 type="file"
                 onChange={handleFileChange}
                 accept=".png, .jpg, .jpeg"
@@ -78,7 +90,15 @@ export default function Home() {
         </Modal>
         {/* <button className="getPremium">Get Premium</button> */}
       </div>
-      <div className="list">sadsa</div>
+      <div className="list">
+        {data &&
+          data.map((item) => (
+            <Vacanse
+              key={item.id}
+              data={item}
+            />
+          ))}
+      </div>
     </div>
   );
 }
