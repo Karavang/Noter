@@ -1,5 +1,5 @@
-from tools.scrape.lnkdn.addOne import addOneLn
-from tools.parseCsv import pushOne
+from backend.tools.scrape.lnkdn.addOne import addOneLn
+from backend.tools.parseCsv import pushOne
 
 
 def addNew(link, timeago):

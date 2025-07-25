@@ -1,4 +1,4 @@
-from tools.scrape.lnkdn.getFull import getFullLn
+from backend.tools.scrape.lnkdn.getFull import getFullLn
 
 
 def getMarkById(id):

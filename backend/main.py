@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Body, status
 from fastapi.responses import JSONResponse
-from tools.funcs.add import addNew
+from backend.tools.funcs.add import addNew
 from datetime import datetime
-from tools.parseCsv import listData
-from tools.funcs.getMark import getMarkById
+from backend.tools.parseCsv import listData
+from backend.tools.funcs.getMark import getMarkById
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
