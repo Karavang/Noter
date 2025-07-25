@@ -14,7 +14,7 @@ export default function Home() {
 
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:8001/doc/${id}`);
+        const res = await fetch(`/api/doc/${id}`);
         setData(res.data);
       } catch (err) {
         console.error("Failed to fetch:", err);
