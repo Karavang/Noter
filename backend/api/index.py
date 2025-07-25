@@ -1,10 +1,11 @@
 # backend/api/index.py
-from backend.main import app  # імпортуємо FastAPI app
+from backend.main import app
 from mangum import Mangum
 
-handler = Mangum(app)  # адаптер для AWS Lambda / Vercel
+# створюємо один екземпляр адаптера
+asgi_handler = Mangum(app)
 
 
+# експортуємо handler як функцію, яку викличе Vercel
 def handler(event, context):
-    asgi_handler = Mangum(app)
     return asgi_handler(event, context)
