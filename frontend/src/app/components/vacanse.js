@@ -4,7 +4,10 @@ import React from "react";
 const Vacanse = ({ data }) => {
   const { id, title, company, timeago } = data;
   return (
-    <Link href={`/${id}`}>
+    <Link
+      className="vacanse-link"
+      href={`/${id}`}
+    >
       {title} - {company} - {timeago}
     </Link>
   );

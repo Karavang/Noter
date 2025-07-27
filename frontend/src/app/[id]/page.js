@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
 import ReactMarkdown from "react-markdown";
 
 export default function Home() {
@@ -14,8 +13,13 @@ export default function Home() {
 
     const fetchData = async () => {
       try {
-        const res = await fetch(`/api/doc/${id}`);
-        setData(res.data);
+        const res = await fetch(`http://localhost:8001/doc/${id}`);
+
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const ans = await res.json();
+        setData(ans);
       } catch (err) {
         console.error("Failed to fetch:", err);
       }
